@@ -4,8 +4,8 @@
   "description": "Test drop for xlsx and transpile es6 to es5 on server and client",
   "main": "index.js",
   "scripts": {
-    "buildServer": "set NODE_ENV=production&& babel.cmd \"babel.cmd $ProjectFileDir$\server\src --out-dir $ProjectFileDir$\server\\build\ \" -d",
-    "start":"node ./server/build/app.js"
+    "buildServer": "set NODE_ENV=production&& babel.cmd server\\src --out-dir server\\build",
+    "start":"node server\\build\\app.js"
   },
   "author": "ks",
   "license": "ISC",
