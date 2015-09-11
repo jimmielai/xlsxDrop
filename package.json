@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "buildServer": "set NODE_ENV=production&& babel.cmd server\\src --out-dir server\\build",
-    "start":"node server\\build\\app.js"
+    "buildClient": "webpack -p",
+    "start":"node server\\build\\app.js",
+    "startDev":"webpack -w -d"
   },
   "author": "ks",
   "license": "ISC",
