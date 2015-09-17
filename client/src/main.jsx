@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
+import ReactDOM from 'react-dom'
 
-class Main extends React.Component {
+class Main extends Component {
   render() {
     return (
       <div>Hello World!</div>
@@ -10,3 +11,6 @@ class Main extends React.Component {
 Main.propTypes = {};
 Main.defaultProps = {};
 
+document.addEventListener('DOMContentLoaded',()=>{
+  ReactDOM.render(<Main />,document.getElementById('app'));
+});
