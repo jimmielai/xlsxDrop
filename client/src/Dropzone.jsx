@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import req from 'superagent'
 
 export default class Dropzone extends React.Component {
   constructor(props){
@@ -40,9 +41,21 @@ export default class Dropzone extends React.Component {
       let data = e.target.result;
       data = this._fixdata(data);
       data = XLSX.read(btoa(data),{type: 'base64'});
-      this._process(data);
+      console.log(data);
+      this._process(data, this._sendData.bind(this));
     };
     reader.readAsArrayBuffer(file);
+  }
+
+  _sendData(data){
+    req.post('http://localhost:8081/data')
+    .send(data)
+    .end((err,res)=>{
+      if(err){
+        return console.log('err: ',err)
+      }
+      console.log(res)
+    })
   }
 
   _fixdata(data){
@@ -52,8 +65,11 @@ export default class Dropzone extends React.Component {
     return o;
   }
 
-  _process(data){
-    this.setState({output:JSON.stringify(this._toJSON(data), 2, 2)})
+  _process(data,cb){
+    let out = this._toJSON(data)["Sheet1"];
+    out = JSON.stringify(out);
+    this.setState({output:out});
+    cb(out);
   }
 
   _toJSON(workbook){

@@ -6,18 +6,21 @@
   "scripts": {
     "buildServer": "set NODE_ENV=production&& babel.cmd server\\src --out-dir server\\build",
     "buildClient": "webpack -p",
-    "start": "node server\\build\\app.js",
+    "start": "nodemon server\\build\\app.js",
     "startDev": "webpack-dev-server --devtool eval --progress --colors --hot --inline --content-base client/build"
   },
   "author": "ks",
   "license": "ISC",
   "dependencies": {
     "bluebird": "^2.10.0",
+    "body-parser": "^1.14.0",
     "express": "^4.13.3",
     "flux": "^2.1.1",
     "ksplitt": "0.0.9",
+    "mongoose": "^4.1.8",
     "react": "^0.14.0-rc1",
-    "react-dom": "^0.14.0-rc1"
+    "react-dom": "^0.14.0-rc1",
+    "superagent": "^1.4.0"
   },
   "devDependencies": {
     "babel-core": "^5.8.24",
