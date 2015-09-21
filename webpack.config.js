@@ -1,12 +1,15 @@
 var path = require('path'),
   ROOT_PATH = __dirname,
   HtmlWebpackPlugin = require('html-webpack-plugin');
-
+//todo bundle.[hash].js for production
 module.exports = {
-  entry: path.resolve(ROOT_PATH,'client/src/main.jsx'),
+  entry: [
+    'webpack/hot/dev-server',
+    'webpack-dev-server/client?http://localhost:8080',
+    path.resolve(ROOT_PATH,'client/src/main.jsx')],
   output:{
     path:'client/build/js/',
-    filename: 'bundle.[hash].js',
+    filename: 'bundle.js',
     publicPath: 'js'
   },
   resolve:{
@@ -15,7 +18,7 @@ module.exports = {
   },
   module:{
     loaders:[
-      {test:/\.jsx$/, include: path.resolve(ROOT_PATH,'client/src'), loader:'babel-loader'}
+      {test:/\.jsx$/, include: path.resolve(ROOT_PATH,'client/src'), loader:'babel'}
     ]
   },
   plugins:[new HtmlWebpackPlugin({

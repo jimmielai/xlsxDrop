@@ -30,7 +30,7 @@ export default class Dropzone extends React.Component {
     e.preventDefault();
     let files = e.dataTransfer.files;
     let reader = new FileReader();
-    alert('dropped!')
+    alert(files[0].name);
   }
 
   _handleDragover(e){
@@ -42,8 +42,8 @@ export default class Dropzone extends React.Component {
   render() {
     let dropStyle = {
       border: "2px dashed #bbb",
-    "-moz-border-radius": "5px",
-    "-webkit-border-radius": "5px",
+    "MozBorderRadius": "5px",
+    "WebkitBorderRadius": "5px",
     borderRadius: "5px",
     padding: "25px",
     textAlign: "center",
