@@ -6,7 +6,7 @@ ehthumbs.db
 
 # Folder config file
 Desktop.ini
-/client/build
+/client/build/js
 /server/build
 
 # Recycle Bin used on file shares

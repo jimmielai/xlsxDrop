@@ -25,5 +25,9 @@ module.exports = {
     title:'xls Drop',
     filename:'../index.html',
     template:'default_index.html'
-  })]
+  })],
+  node:{
+    //https://github.com/webpack/jade-loader/issues/8 --webpack xlsx package errors
+    fs:'empty'
+  }
 };
