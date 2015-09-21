@@ -25,15 +25,15 @@ export default class Dropzone extends React.Component {
     }
   }
 
-  _handleDrop = (e)=>{
+  _handleDrop(e){
     e.stopPropagation();
     e.preventDefault();
     let files = e.dataTransfer.files;
     let reader = new FileReader();
-
+    alert('dropped!')
   }
 
-  _handleDragover = (e)=>{
+  _handleDragover(e){
     e.stopPropagation();
     e.preventDefault();
     e.dataTransfer.dropEffect = 'copy';

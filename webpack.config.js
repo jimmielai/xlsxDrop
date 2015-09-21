@@ -5,9 +5,9 @@ var path = require('path'),
 module.exports = {
   entry: path.resolve(ROOT_PATH,'client/src/main.jsx'),
   output:{
-    path:path.resolve(ROOT_PATH,'client/build/js/'),
+    path:'client/build/js/',
     filename: 'bundle.[hash].js',
-    publicPath: path.resolve(ROOT_PATH,'client/build/assets')
+    publicPath: 'js'
   },
   resolve:{
     extensions:['','.js','.jsx'],
@@ -20,7 +20,7 @@ module.exports = {
   },
   plugins:[new HtmlWebpackPlugin({
     title:'xls Drop',
-    filename:'client/build/index.html',
+    filename:'../index.html',
     template:'default_index.html'
   })]
 };

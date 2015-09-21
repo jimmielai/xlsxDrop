@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
-import Dropzone from 'Dropzone.jsx'
+import Dropzone from './Dropzone'
 
 class Main extends Component {
   render() {

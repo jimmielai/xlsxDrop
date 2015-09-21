@@ -7,7 +7,7 @@
     "buildServer": "set NODE_ENV=production&& babel.cmd server\\src --out-dir server\\build",
     "buildClient": "webpack -p",
     "start": "node server\\build\\app.js",
-    "startDev": "webpack-dev-server --devtool eval -content-base \\client\\build --progress --colors --hot --inline --history-api-fallback"
+    "startDev": "webpack-dev-server --devtool eval --content-base client/build/ --progress --colors --hot --inline --history-api-fallback"
   },
   "author": "ks",
   "license": "ISC",
