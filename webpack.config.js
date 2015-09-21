@@ -5,7 +5,8 @@ var path = require('path'),
 module.exports = {
   entry: path.resolve(ROOT_PATH,'client/src/main.jsx'),
   output:{
-    filename: path.resolve(ROOT_PATH,'client/build/js/bundle.[hash].js'),
+    path:path.resolve(ROOT_PATH,'client/build/js/'),
+    filename: 'bundle.[hash].js',
     publicPath: path.resolve(ROOT_PATH,'client/build/assets')
   },
   resolve:{

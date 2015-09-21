@@ -1,10 +1,15 @@
 import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
+import Dropzone from 'Dropzone.jsx'
 
 class Main extends Component {
   render() {
     return (
-      <div>Hello World!</div>
+
+      <div>
+        <h2>Hello World!</h2>
+        <Dropzone />
+      </div>
     );
   }
 }
