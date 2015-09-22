@@ -1,5 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import routes from './routes'
 let app = express();
 
 app.use(express.static('../../client/build'));
@@ -12,13 +13,8 @@ app.use(function(req, res, next){
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   next();
 });
-app.get('/',(req,res,next)=>{
-  return res.json('aloha')
-});
-app.post('/data', (req,res,next)=>{
-  console.log(req.body);
-  res.json({success:true});
-})
+
+app.use(routes);
 
 let server = app.listen(8081,()=>{
   let host = server.address().address,

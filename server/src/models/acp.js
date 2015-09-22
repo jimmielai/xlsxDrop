@@ -8,7 +8,23 @@ var promise = require('bluebird'),
   objectId = Schema.Types.ObjectId,
   acpModel;
 
-var acpSchema = new Schema({}, {
+var acpSchema = new Schema({
+  Project: String,
+  "CPFO #": String,
+  "CPFO Date": String,
+  Description: String,
+  "PCO #": String,
+  "Approved Amount": String,
+  "Pre-Apprvd Days": String,
+  "CPFO Remarks": String,
+  "Item #": String,
+  "Cost Code": String,
+  "Item Description": String,
+  "Bdgt Est.": String,
+  "Bdgt Prop.": String,
+  "Bdgt Aprv": String,
+  "Bdgt Appd.": String
+}, {
   collection: 'acp' //set collection name
 });
 //virtual fields
