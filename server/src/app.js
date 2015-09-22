@@ -1,5 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import models from './models'
 import routes from './routes'
 let app = express();
 
@@ -14,6 +15,10 @@ app.use(function(req, res, next){
   next();
 });
 
+//load models on req.models
+app.use((req,res,next)=>{
+  req.models = models
+});
 app.use(routes);
 
 let server = app.listen(8081,()=>{
