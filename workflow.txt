@@ -1,0 +1,3 @@
+1. User drops an excel file that gets converted to JSON and saved in tempAcpDrop.
+2. After successfully inserting the raw data. Route calls tempAcpDrop.convert(). This step converts the data to the correct format, and writes the output to importAcpConverted.
+3. After conversion, route calls acp.toHist() on acp, which moves all data from acp to acpHist, then clears the collection by calling acp.clear().

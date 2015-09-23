@@ -1,23 +1,25 @@
-import { promisifyAll } from 'bluebird'
-let mongoose = promisifyAll(require('mongoose'));
-const { Schema, model, Schema:{Types:{ObjectId: objectId}} } = mongoose;
-import { shortDate } from './plugins'
-let acpHistModel;
+var Promise = require('bluebird'),
+  mongoose = Promise.promisifyAll(require('mongoose')),
+  Schema = mongoose.Schema,
+  model = mongoose.model,
+  objectId = Schema.Types.ObjectId,
+  shortDate = require('./plugins').shortDate;
+var acpHistModel;
 
 let acpHistSchema = new Schema({
-  projId: { type: objectId, ref: 'proj' },
-  projectNo: { type: String },
-  date: { type: String },
-  cpfoNo: { type: String },
-  pcoNo: { type: String },
-  description: { type: String },
-  remarks: { type: String },
-  days: { type: Number },
-  bdgtEst: { type: Number },
-  bdgtProp : { type: Number },
-  bdgtAprv: { type: Number },
-  bdgtAppd: { type: Number },
-  lineItemCount: { type: Number },
+  //projId: {type: objectId, ref: 'proj'},
+  projectNo: {type: String},
+  date: {type: String},
+  cpfoNo: {type: String},
+  pcoNo: {type: String},
+  description: {type: String},
+  remarks: {type: String},
+  days: {type: Number},
+  bdgtEst: {type: Number},
+  bdgtProp: {type: Number},
+  bdgtAprv: {type: Number},
+  bdgtAppd: {type: Number},
+  lineItemCount: {type: Number},
   lineItems: [{
     itemNo: {type: String},
     costCode: {type: String},
@@ -27,7 +29,7 @@ let acpHistSchema = new Schema({
     bdgtAprv: {type: Number},
     bdgtAppd: {type: Number}
   }],
-  dataDate: {type: Date, default: Date.now, get: shortDate }
+  dataDate: {type: Date, default: Date.now, get: shortDate}
 }, {
   collection: 'acpHist' //set collection name
 });

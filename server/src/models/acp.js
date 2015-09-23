@@ -1,11 +1,14 @@
-import { promisifyAll } from 'bluebird'
-let mongoose = promisifyAll(require('mongoose'));
-const { Schema, model, Schema:{Types:{ObjectId: objectId}} } = mongoose;
-import { shortDate } from 'plugins'
-let acpModel;
+var Promise = require('bluebird'),
+  mongoose = Promise.promisifyAll(require('mongoose')),
+  acpHist = require('./acpHist').acpHistModel,
+  Schema = mongoose.Schema,
+  model = mongoose.model,
+  objectId = Schema.Types.ObjectId,
+  shortDate = require('./plugins').shortDate;
+var acpModel;
 
 let acpSchema = new Schema({
-  projId: { type: objectId, ref: 'proj' },
+  //projId: { type: objectId, ref: 'proj' },
   projectNo: { type: String },
   date: { type: String },
   cpfoNo: { type: String },
@@ -38,7 +41,25 @@ let acpSchema = new Schema({
 // acpSchema .method({});
 
 //static methods
-// acpSchema .static({});
+acpSchema.static({
+  toHist(){
+    return acpModel.collection.find({}).execAsync()
+      .then(function(acp){
+        return acpHist.collection.insertAsync(acp)
+      }).then(function(v){
+        if(v.writeErrors.length > 0){
+          return Promise.resolve((resolve,reject)=>{
+            let err = new Error(v.writeErrors.errmsg);
+            err.code = v.writeErrors.code;
+            return reject(err)
+          })
+        } else {
+          //todo check if this is the true behavior of bulk inserting records
+          return v.nInserted;
+        }
+      })
+  }
+});
 
 //add plugins
 // acpSchema .plugin();
