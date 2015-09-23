@@ -1,10 +1,10 @@
 import { promisifyAll } from 'bluebird'
 let mongoose = promisifyAll(require('mongoose'));
 const { Schema, model, Schema:{Types:{ObjectId: objectId}} } = mongoose;
-import { shortDate } from 'plugins'
-let acpModel;
+import { shortDate } from './plugins'
+let acpHistModel;
 
-let acpSchema = new Schema({
+let acpHistSchema = new Schema({
   projId: { type: objectId, ref: 'proj' },
   projectNo: { type: String },
   date: { type: String },
@@ -29,27 +29,27 @@ let acpSchema = new Schema({
   }],
   dataDate: {type: Date, default: Date.now, get: shortDate }
 }, {
-  collection: 'acp' //set collection name
+  collection: 'acpHist' //set collection name
 });
 //virtual fields
-// acpSchema .virtual('');
+// acpHistSchema .virtual('');
 
 //methods
-// acpSchema .method({});
+// acpHistSchema .method({});
 
 //static methods
-// acpSchema .static({});
+// acpHistSchema .static({});
 
 //add plugins
-// acpSchema .plugin();
+// acpHistSchema .plugin();
 
 //add indexes
-// acpSchema .index({});
+// acpHistSchema .index({});
 
 //add options
-acpSchema.set('toJSON', {getters: true, virtuals: true});
+acpHistSchema.set('toJSON', {getters: true, virtuals: true});
 
 //create the model
-acpModel = model('acp', acpSchema);
-module.exports.acpSchema = acpSchema;
-module.exports.acpModel = acpModel;
+acpHistModel = model('acpHist', acpHistSchema);
+module.exports.acpHistSchema = acpHistSchema;
+module.exports.acpHistModel = acpHistModel;
