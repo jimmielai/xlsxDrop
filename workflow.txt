@@ -1,7 +1,18 @@
-1. User drops an excel file that gets converted to JSON and saved in
-   tempAcpDrop.
-2. After successfully inserting the raw data. Route calls tempAcpDrop.convert().
+Server Operations: 
+1. Post request on xlsDrop route.  Req.body => parseBody (see browser #3).
+2. If NEW, find the upload by id and insert a chunks collection with count of chunk objects equal to chunk.length.  With  properties: status: status of chunk, message: success message, error: error object.  Update the upload.status:(const NEW,UPLOAD_IN_PROGRESS,CONVERSION_IN_PROGRESS,ERROR,UPLOAD_SUCCESS,CONVERSION_SUCCESS,COMPLETE, FAILED), if RETRY update upload.chunk[idx].status to RETRY.
+3. Insert chunk into collectionTempDrop, if success update the upload chunk[idx].status = success. if error, update the upload chunk[idx].error with the error object.
+4. Respond with response object success of error.
+4. After successfully inserting the raw data. Route calls tempAcpDrop.convert().
    This step converts the data to the correct format, and writes the output to
    importAcpConverted.
-3. After conversion, route calls acp.toHist() on acp, which moves all data from
+5. After conversion, route calls acp.toHist() on acp, which moves all data from
    acp to acpHist, then clears the collection by calling acp.clear().
+
+Browser Operations:
+1. When the xls file is parsed, check the first 100 rows for validity.
+2. After that, start chunking the array into chunks of 500-1000 (figure this out), chunk[idx] = {status,data}
+3. Configure a post request: create an object with properties { id: uploadId, date: dataDate, index:{idx: idx+1, of:chunk.length}, action: (new|retry, data: chunk[idx]) } as payload data sent to the server.
+4. On success, chunk.success[idx].status = success, step to the next chunk[idx] (501-1000 (etc)), on error set chunk.error[idx], send RETRY chunk[error[idx].idx].data.
+5. Open a post request, and send data to the server. Repeat until chunk.idx+1 = chunk.length.
+6. Loop 1x, if upload.status !== SUCCESS, display retry error chunks. Continue loop until server responds with status:FAILED

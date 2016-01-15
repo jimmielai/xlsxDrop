@@ -12,7 +12,7 @@
 </head>
 <body>
 <div id="app"><h1>Javascript Not Enabled Or Incompatible Browser</h1></div>
-<script src="js/assets/xlsx/dist/xlsx.full.min.js"></script>
+<script src="assets/xlsx/dist/xlsx.full.min.js"></script>
 {% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
 <script src="{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}"></script>
 {% } %}

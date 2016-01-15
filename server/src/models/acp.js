@@ -1,6 +1,6 @@
 var Promise = require('bluebird'),
   mongoose = Promise.promisifyAll(require('mongoose')),
-  acpHist = require('./acpHist').acpHistModel,
+  acpHist = require('../app').acpHist,
   Schema = mongoose.Schema,
   model = mongoose.model,
   objectId = Schema.Types.ObjectId,

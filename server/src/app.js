@@ -1,12 +1,15 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import models from './models'
+import models from './models/db'
 import routes from './routes'
 let app = express();
+
+export default models
 
 app.use(express.static('../../client/build'));
 app.use(bodyParser.json({limit:'50mb',extended:false, parameterLimit:100000}));
 app.use(bodyParser.urlencoded({limit:'50mb',extended:false, parameterLimit:100000}));
+
 //setup cors
 app.use(function(req, res, next){
   res.header("Access-Control-Allow-Origin", "*");
@@ -17,7 +20,7 @@ app.use(function(req, res, next){
 
 //load models on req.models
 app.use((req,res,next)=>{
-  req.models = models
+  req.models = models;
 });
 app.use(routes);
 

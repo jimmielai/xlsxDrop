@@ -34,6 +34,7 @@ export default class Dropzone extends React.Component {
   _handleDrop(e){
     e.stopPropagation();
     e.preventDefault();
+    console.log("file dropped")
     let files = e.dataTransfer.files;
     let file = files[0];
     let reader = new FileReader();
