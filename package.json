@@ -1,6 +1,6 @@
 {
   "name": "xlsx-drop",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Test drop for xlsx and transpile es6 to es5 on server and client",
   "main": "index.js",
   "scripts": {
