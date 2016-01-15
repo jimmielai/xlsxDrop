@@ -14,7 +14,7 @@ export default class Dropzone extends React.Component {
     if (window.File && window.FileReader && window.FileList && window.Blob) {
 
     } else {
-      alert('The File APIs are not fully supported in this browser.');
+      alert('This browser is not compatible, please use a modern browser.');
     }
     if(this.refs.drop.addEventListener){
       this.refs.drop.addEventListener('dragenter', this._handleDragover.bind(this),false);
@@ -34,29 +34,17 @@ export default class Dropzone extends React.Component {
   _handleDrop(e){
     e.stopPropagation();
     e.preventDefault();
-    console.log("file dropped")
-    let files = e.dataTransfer.files;
-    let file = files[0];
+    console.log("file dropped",  e.dataTransfer.files[0].name);
+    let file = e.dataTransfer.files[0];
+    let fileName = `${file.name.replace(/\.[^/.]+$/, "")}.json`;
     let reader = new FileReader();
     reader.onload = (e)=>{
       let data = e.target.result;
       data = this._fixdata(data);
       data = XLSX.read(btoa(data),{type: 'base64'});
-      console.log(data);
-      this._process(data, this._sendData.bind(this));
+      this._process(data, this._download.bind(this, fileName));
     };
     reader.readAsArrayBuffer(file);
-  }
-
-  _sendData(data){
-    req.post('http://localhost:8081/data')
-    .send(data)
-    .end((err,res)=>{
-      if(err){
-        return console.log('err: ',err)
-      }
-      console.log(res)
-    })
   }
 
   _fixdata(data){
@@ -67,10 +55,7 @@ export default class Dropzone extends React.Component {
   }
 
   _process(data,cb){
-    let out = this._toJSON(data)["Sheet1"];
-    out = JSON.stringify(out);
-    this.setState({output:out});
-    cb(out);
+    cb(JSON.stringify(this._toJSON(data)["Sheet1"]));
   }
 
   _toJSON(workbook){
@@ -90,6 +75,20 @@ export default class Dropzone extends React.Component {
     e.dataTransfer.dropEffect = 'copy';
   }
 
+  _download(filename, json){
+    //http://fiddle.jshell.net/UZrzW/
+    let type = 'text/plain;charset=utf-8';
+    json = new Blob([json], {type});
+    let element = document.createElement('a');
+    element.href = window.URL.createObjectURL(json);
+    element.setAttribute('download', filename);
+    element.style.display='none';
+    document.body.appendChild(element);
+
+    element.click();
+    document.body.removeChild(element);
+  }
+
   render() {
     let dropStyle = {
       border: "2px dashed #bbb",
@@ -106,9 +105,9 @@ export default class Dropzone extends React.Component {
        <div id="drop" ref="drop" style={dropStyle}>
          Drop an XLSX / XLSM / XLSB / XLS file here to upload data sheet
        </div>
-        <div id="out" ref="out">{this.state.output}</div>
       </div>
     );
   }
 }
 Dropzone.propTypes = {};
+
