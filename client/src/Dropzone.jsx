@@ -37,6 +37,7 @@ export default class Dropzone extends React.Component {
     console.log("file dropped",  e.dataTransfer.files[0].name);
     let file = e.dataTransfer.files[0];
     let fileName = `${file.name.replace(/\.[^/.]+$/, "")}.json`;
+    console.log(`FileName: ${fileName}`);
     let reader = new FileReader();
     reader.onload = (e)=>{
       let data = e.target.result;
@@ -55,9 +56,8 @@ export default class Dropzone extends React.Component {
   }
 
   _process(_data,cb){
-    data = this._toJSON(_data);
-    console.log(data);
-    cb(JSON.stringify(data["Sheet1"]));
+    var data = this._toJSON(_data);
+    cb(JSON.stringify(data[Object.keys(data)[0]]));
   }
 
   _toJSON(workbook){
@@ -86,7 +86,7 @@ export default class Dropzone extends React.Component {
     element.setAttribute('download', filename);
     element.style.display='none';
     document.body.appendChild(element);
-
+    console.log(`File name should be: ${element.download}`);
     element.click();
     document.body.removeChild(element);
   }
