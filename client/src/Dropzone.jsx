@@ -54,8 +54,10 @@ export default class Dropzone extends React.Component {
     return o;
   }
 
-  _process(data,cb){
-    cb(JSON.stringify(this._toJSON(data)["Sheet1"]));
+  _process(_data,cb){
+    data = this._toJSON(_data);
+    console.log(data);
+    cb(JSON.stringify(data["Sheet1"]));
   }
 
   _toJSON(workbook){
