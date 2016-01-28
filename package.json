@@ -7,7 +7,8 @@
     "buildServer": "set NODE_ENV=production&& babel.cmd server\\src --out-dir server\\build",
     "buildClient": "webpack --config webpack.config.prod.js -p",
     "start": "nodemon server\\build\\app.js",
-    "startDev": "webpack-dev-server --devtool eval --progress --colors --hot --inline --content-base client/build"
+    "startDev": "webpack-dev-server --devtool eval --progress --colors --hot --inline --content-base client/build",
+    "deploy": "surge -p client/build -d xlsdrop.surge.sh"
   },
   "author": "ks",
   "license": "ISC",
