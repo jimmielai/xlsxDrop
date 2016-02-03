@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import req from 'superagent'
+import req from 'axios'
 
 export default class Dropzone extends React.Component {
   constructor(props){
@@ -14,7 +14,7 @@ export default class Dropzone extends React.Component {
     if (window.File && window.FileReader && window.FileList && window.Blob) {
 
     } else {
-      alert('This browser is not compatible, please use a modern browser.');
+      return alert('This browser is not compatible, please use a modern browser.');
     }
     if(this.refs.drop.addEventListener){
       this.refs.drop.addEventListener('dragenter', this._handleDragover.bind(this),false);
